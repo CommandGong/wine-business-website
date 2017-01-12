@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+		<meta http-equiv="Content-Type" content="text/html; charset=GB2312" />  
+        <link rel="stylesheet" href="css/main.css" />
+		 
+		<script language="text/javascript">
+
+
+		</script>
+	</head>
+	<script id="panel-init">
+        $(function () {
+            $("body > [data-role='panel']").panel().enhanceWithin();
+
+        });
+    </script>
+	<script>
+	
+		
+		var myusername=getCookie("username");
+		var mypass=getCookie("password");
+		//cookie info
+		var Username;//should be email address
+		var thecheck;
+
+		
+		function signin(){
+			
+			Username=document.getElementById("theUserName").value;
+			var we= '<li><a href="#" class="ui-btn ui-icon-delete ui-btn-icon-left" id= "leftslide"onclick="logout();">Welcome  '+ Username+ ' <div >点击退出登录</div></a></li>';
+			document.getElementById("logArea").innerHTML=we;
+			var pan='<a href="#" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" data-rel="close">Close panel</a>';
+	//		document.getElementById("panelArea").innerHTML=pan;
+	//		var weback='<li><a href="#" class="ui-btn ui-icon-delete ui-btn-icon-left"onclick="logout();" >log</a></li>';
+	
+			
+		}	
+		
+		function signinCookie(){
+			
+			var we= '<li><a href="#" class="ui-btn ui-icon-delete ui-btn-icon-left" id= "leftslide" onclick="logout();">Welcome  '+myusername+ '<div >点击退出登录</div></a></li>';
+			document.getElementById("logArea").innerHTML=we;
+			var pan='	<ul data-role="listview" data-inset="true"><li data-role="list-divider">List view</li></ul>';
+	//		document.getElementById("panelArea").innerHTML=pan;
+		}	
+	
+	
+	
+	function connect(){
+		if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp=new XMLHttpRequest();
+		}
+		else{// code for IE6, IE5
+			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+
+	}
+
+	function signin1(){
+		connect();
+		var myName;
+		var myPassword;
+		myName=document.getElementById("theUserName").value;
+		myPassword=document.getElementById("password").value;
+		checklogin(myName,myPassword);
+	
+
+	}
+	function checklogin(cname,cpass){
+	
+		$.ajax({
+			
+			type: "POST",
+			url: "logincheck.php",
+
+			data: {
+					'Name': cname,
+					'Pass': cpass
+				   },
+			success: function(msg){
+				
+				 logresponce(msg,cname,cpass);
+				 
+			
+				
+			}
+		});
+	
+
+		
+	}//check log in
+	
+	function setcookies(cname, cpass){
+	
+		document.cookie="username="+cname;
+        document.cookie="password="+cpass;
+		
+	}
+	
+	
+	function logresponce(check,cname,cpass){
+		
+		if(check=="SUCCESS"){
+		
+			if(myusername!=""&&mypass!=""){
+				
+				signinCookie();
+			}
+			else{
+				signin();
+				setcookies(cname,cpass);
+			}
+			
+		}
+		else {
+			alert("Wrong Login information!");
+            console.log(check);
+		}
+	}
+	
+	function getCookieinfo(){
+		
+		if(myusername!=""&&mypass!=""){
+			checklogin(myusername,mypass);
+		}
+		
+		
+		
+	}
+	
+	function getCookie(cname) {
+		var name = cname + "=";
+		var ca = document.cookie.split(';');
+		for(var i=0; i<ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0)==' ') c = c.substring(1);
+			if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+		}
+		return "";
+	}
+	
+	function delete_cookie( name, path, domain ) {
+	  if( getCookie( name ) ) {
+		document.cookie = name + "=" +
+		  ((path) ? ";path="+path:"")+
+		  ((domain)?";domain="+domain:"") +
+		  ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+	  }
+	}//for log out
+	
+	function logout(){
+		delete_cookie("username","","");
+		delete_cookie("password","","");
+		location.reload();
+	}
+	function hadlogin(){
+		var  MYname=getCookie("username");
+		if(MYname==""){
+			alert("您还没有登录，请先登录");
+			window.location.href = "signin.html";
+		}
+		else {
+			window.location.href = "cart.php";
+		}
+	}
+	function refresh(){
+				 location.reload();
+	}
+	</script>
+	
+
+	
+	<style type="text/css">
+				
+
+	</style>
+	
+	<body onload="getCookieinfo();">
+			<div data-role="panel" data-position-fixed="true" id="mypanel" data-display="push" data-theme="b">
+				<ul data-role="listview" data-theme="b" >
+						<li data-icon="back"><a href="#" data-rel="close">back</a></li>
+						<li><a href="#" class="ui-btn ui-btn-inline" onclick="hadlogin();">Cart</a></li>
+						<li><a href="#" class="ui-btn ui-btn-inline" >Histroy</a></li>
+				</ul>
+						
+			</div><!-- /panel -->
+		
+			
+			
+		<div data-role="page"  id="index" data-theme="a" >
+			
+			
+		    	<div data-role="header" >
+					<div data-role="navbar">
+						<ul>
+							<!--<li><a href="#mypanel" class="ui-btn ui-icon-delete ui-btn-icon-left" id= "leftslide">Open</a></li>-->
+						<div id="logArea">	<li ><a href="#loginMenu"data-rel="popup" data-position-to="window" class="ui-btn ui-btn-inline ui-icon-check ui-btn-icon-left" data-transition="pop" id="fuckme">loging</a>
+								<div data-role="popup" id="loginMenu" class="ui-corner-all" data-theme="b">
+									
+										<div style="padding:20px 30px;">
+										<h3>enter your username and password </h3>
+										<label for="un" class="ui-hidden-accessible"></label>
+										<input type="text" name="userID" id="theUserName" value="" placeholder="Email Address"  >
+										
+										<label for="password" class="ui-hidden-accessible"></label>
+										<input type="password" name="password" id="password" value="" placeholder="Password" >
+										<a href="#index"  class ="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-check"data-rel="back" data-transition="flow" onclick="signin1();"> Sign in </a>
+										</div>
+									
+								
+								</div>
+								
+							</div>
+							
+						</ul>
+					</div> 
+				</div>
+				
+				<div data-role="main" class="ui-content" >
+					<!--
+					<div id="welcome"><p>欢迎来到加拿大瀑布酒庄</p></div>
+					<p><img src="picture/JZ.jpg" id="topimg"></p>
+					<p> 有关我们的庄园 </p>
+					
+					<p><a href ="../file/wechat/wechatfunction.html"data-transition="flip" rel="external" data-ajax="false"><img src="picture/winefarm.jpg" id="left" ></a></p>
+					<p>有关我们的产品</p>
+					<p><a href ="#product-list"data-transition="flip"><img src="picture/productlist.jpg" id="right" data-ajax="false" ></a></p>
+					-->
+					<img src="picture/0.jpg" style="width:100%"></img>
+			<div >
+				<center>
+					<p><center><h2>Welcome to the REFI_SUB Wine Store</h2></center></p>
+					<p>	Reif Estate Winery has a long history of innovation and development in sustainable winemaking practices. We are a founding member of the Vintner's Quality Alliance and partner in the development of the Environmental Charter for the Sustainable Winemaking Committee for the Wine Council of Ontario.</p>
+				</center>
+			</div>
+			<div class="ui-grid-a ui-responsive" >
+				<div class="ui-block-a">
+					<a href="signin.html" class="ui-shadow ui-btn btn_custom custom-btn-leftup" data-ajax="false">
+						<p>Member Register </p>
+					</a></div>
+				<div class="ui-block-b">
+					<a href="#product-list" class="ui-shadow ui-btn btn_custom custom-btn-rightup" onclick="refresh();">
+						<p>Our Product</p>
+					</a>
+				</div>
+				
+				
+			</div><!-- a row -->
+			
+			<div class="ui-grid-a ui-responsive" >
+				<div class="ui-block-a" >
+					
+					<a href="appointment.html" class="ui-shadow ui-btn  btn_custom custom-btn-leftdown" data-ajax="false" >
+						<p>Traval Apportionment</p>
+					</a>
+					
+				</div>
+				<div class="ui-block-b">
+					<a href="http://www.reifwinery.com/" class="ui-shadow ui-btn  btn_custom custom-btn-rightdown" data-ajax="false">
+						<p>Original Website</p>
+					</a>
+				</div>
+				
+				
+			</div><!-- a row -->	
+				</div><!--body page-->
+
+			
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar">
+					<ul><li><a href="#" class="ui-btn">contact us</a> </li></ul>
+				</div>
+			</div>
+			
+
+		</div><!--main page  -->
+		
+		
+		<div data-role="page"  id="product-list" data-theme="b" >
+			
+			
+		
+		    	<div data-role="header" >
+					<div data-role="navbar">
+						<ul>
+							<li><a href="#mypanel" class="ui-btn ui-icon-delete ui-btn-icon-left" id= "leftslide" >my Profile</a></li>
+							<li><a href="#index" class="ui-btn ui-icon-back ui-btn-icon-left" data-transition="flow" >Back to mean page</a> </li>
+						</ul>
+					</div> 
+				</div><!-- header-->
+				
+				<div data-role="main" class="ui-content">
+					<form class="ui-filterable">
+						<input id="product-search" data-type="search" placehoder="Enter your product name to search">
+					</form>
+					<ul data-role="listview" data-filter="true" data-inset="true" data-input="#product-search">
+						<li >
+							<a href ="#product-wine1"class="ui-btn ui-btn-b">
+								<img src="picture/375ml.bmp" height="100px">
+								<h2>Vidal Icewine 375ml</h2>
+								<p>Price: CDN 47.05</p><!--hard coding here, use div-->
+							</a>
+						</li>
+						
+						<li>
+							<a href ="#product-wine2"class="ui-btn ui-btn-b">
+								<img src="picture/Grand Vidal Icewine.bmp"height="100px">
+								<p>
+									<h2>Vidal Select Late Harvest 375ml</h2>
+									
+								</p>
+								<p>Price:CDN 65.00</p><!--hard coding here, use div-->
+							</a>
+						</li>
+						
+						
+						<li>
+							<a href ="#product-wine3"class="ui-btn ui-btn-b">
+								<img src="picture/375ml.png"height="100px">
+								<h2>First Growth Merlot  </h2>
+								<p>Price:CDN 95.00 </p><!--hard coding here, use div-->
+							</a>
+						</li>
+						
+					
+						
+					</ul>
+				</div><!--body page-->
+				
+			
+					
+				<div data-role="footer" data-position="fixed">
+					<div data-role="navbar">
+						<ul>
+						<li><a href="#" class="ui-btn">contact us</a> </li>
+						<li><a href="#index" class="ui-btn" data-ajax="false">Back to mean page</a> </li>
+						</ul>
+					</div>
+				</div><!--footer-->
+		
+		</div><!--productlist page  -->
+		
+		<script>
+		
+			function add(thepid){
+			
+				var  MYname=getCookie("username");
+		
+				if(MYname==""){
+					alert("please register first");
+					location.href = 'signin.html';
+				
+					
+				}
+				else {
+				  buy(thepid,MYname);
+					
+				}
+			}
+			
+			function buy(thepid, name){
+				connect();
+				
+					$.ajax({
+						
+						type: "POST",
+						url: "buy.php",
+
+						data: {
+								'Pid': thepid,
+								'username':name
+							   },
+						success: function(msg){
+							console.log(name);
+							console.log("msg:"+msg);
+							 if(msg=="SUCCESS"){
+								alert("you successfully add the item in your chat");
+								location.href = 'cart.php';
+							 }
+							 
+						
+							
+						}
+					});
+				
+			}
+			
+			function connect(){
+				if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+					xmlhttp=new XMLHttpRequest();
+				}
+				else{// code for IE6, IE5
+					xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+				}
+
+			}
+			
+			
+		</script>
+		
+		
+		
+		
+		<div data-role="page"  id="product-wine1" data-theme="b" >
+		
+			<div data-role="header" >
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#product-list" class="ui-btn ui-icon-back ui-btn-icon-left" >Back to product</a> </li>
+					</ul>
+				</div> 
+					
+								
+			</div><!-- header-->
+			
+			<div data-role="main" class="ui-content" >
+				<p>
+				
+					Vidal Icewine 375ml </br>
+					VQA NIAGARA RIVER
+                    VINTAGE - 2013</br>
+					CDN:47.05 $</br>
+					VINTAGE & VITICULTURE</br>
+					One of the first Canadian Icewines was produced on this property. Our Vidal Icewine is traditionally harvested from our oldest 12 acre block of Vidal vines planted in 1981. Average picking temperatures ranged from -10 ?C and -12?C . The Icewine was harvested was harvested on November 25th and December 16th , 2013.</br>
+					
+				</p>
+				<img src="picture/375ml.bmp" height="500px" width="100%">
+			<!--	
+			<div id="logArea"><a href="#loginMenu"data-rel="popup" data-position-to="window" class="ui-btn ui-btn-inline ui-icon-check ui-btn-icon-left" data-transition="pop" id="fuckme">loging</a>
+			-->
+			</div>
+			
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#" class="ui-btn" data-ajax="false" onclick="add(1);">buy</a></li>
+					</ul>
+				</div>
+			</div><!--footer-->			
+			
+			
+			
+		</div><!--fake productdetail page wine1  -->
+		
+		<div data-role="page"  id="product-wine2" data-theme="b" >
+		
+			<div data-role="header" >
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#product-list" class="ui-btn ui-icon-back ui-btn-icon-left" >Back to product</a> </li>
+					</ul>
+				</div> 
+			</div><!-- header-->
+			
+			<div data-role="main" class="ui-content" >
+				<p>
+				
+					Vidal Select Late Harvest 375ml  </br>
+					VQA NIAGARA RIVER</br>
+					CDN:65.00 加元</br>
+					VINTAGE & VITICULTURE:</br>
+					Weather conditioned varied greatly throughout the year but overall temperatures fell in the normal range and rainfall was normal to above normal. Harvest time arrived with a warm September but October saw untimely rains which made things trickier. Overall it was a good harvest</br>
+					
+				</p>
+				<img src="picture/Grand Vidal Icewine.bmp" height="500px" width="100%">
+			</div>
+			
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#" class="ui-btn" data-ajax="false" onclick="add(2);">buy</a></li>
+					</ul>
+				</div>
+			</div><!--footer-->			
+			
+			
+			
+		</div><!--productdetail page  wine3 -->
+		<div data-role="page"  id="product-wine3" data-theme="b" >
+		
+			<div data-role="header" >
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#product-list" class="ui-btn ui-icon-back ui-btn-icon-left" >Back to product</a> </li>
+					</ul>
+				</div> 
+			</div><!-- header-->
+			
+			<div data-role="main" class="ui-content" >
+				<p>
+				
+					First Growth Merlot </br>
+					VQA NIAGARA RIVER
+                    VINTAGE - 2007</br>
+					CDN:95.00 $</br>
+					VINTAGE & VITICULTURE:</br>
+					This lot of 100 percent Merlot was harvested from our 18 year old blocks of vines that were thinned to a restricted 2 tonnes per acre. The vines are located on Reif Estates 125 acre Vineyard found adjacent to the Niagara River, midway between Lake Ontario and the Niagara Escarpment. The grapes were harvested October 19, 2007 with Brix levels at 24.8 degrees</br>
+					
+				</p>
+				<img src="picture/375ml.png" height="500px" width="100%">
+			</div>
+			
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar">
+					<ul>
+						<li><a href="#" class="ui-btn" data-ajax="false" onclick="add(3);">buy</a></li>
+					</ul>
+				</div>
+			</div><!--footer-->			
+			
+			
+			
+		</div><!--productdetail page  wine3 -->
+		
+		
+
+		
+		
+	</body>
+</html>

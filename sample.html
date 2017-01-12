@@ -1,0 +1,213 @@
+<!DOCTYPE html >
+<head>
+
+<title></title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+
+
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    
+    <script src="mobiscroll/js/mobiscroll.custom-2.5.0.min.js" type="text/javascript"></script>
+    <link href="mobiscroll/css/mobiscroll.custom-2.5.0.min.css" rel="stylesheet" type="text/css" />
+  
+<!-- "mobiscroll -->
+
+
+<!-- Mar23 autocomplete-->
+
+<script>
+
+
+
+</script>
+<style>
+
+
+.ui-filter-inset {
+    margin-top: 0;
+}
+</style>
+
+<!-- Mar23 autocomplete-->
+
+<body>
+
+	<div data-role="page"  id="p1" data-theme="a">
+    	<div data-role="header" data-position="fixed">
+        	<div data-role="navbar">
+            	<ul>
+                	<li><a href="#p1" data-icon="home" data-transition="flip"></a></li>
+                    <li><a href="#search" data-icon="search" data-transition="slidedown"></a></li>
+                    <li><a href="#landing" data-icon="gear"></a></li>
+                    <li><a href="#p1" data-icon="arrow-r"></a></li>
+                </ul>
+            </div> 
+          
+         </div> 
+         
+         <div data-role="main" class="ui-content">
+         	<br>
+            <br>
+         	<center><h1>search</h1></center>
+        <a href="#search" data-transition="slidedown"><textarea id="target" >Where to?</textarea></a>
+           	<p>popular tips</p>
+            
+         </div>
+         
+         <div data-role="footer" data-position="fixed">
+         	<p>&copy;footer</p>
+         </div>
+         
+     </div><!--main page  -->
+     
+    <div data-role="page"  id="landing" data-theme="a">
+    	<div data-role="header" data-position="fixed">
+        	
+            <div data-role="navbar">
+            	<ul>
+                	<li><a href="#p1" data-icon="home" data-transition="flip" ></a></li>
+                    <li><a href="#search" data-icon="search" data-transition="slidedown"></a></li>
+                    <li><a href="#landing" data-icon="gear"></a></li>
+                    <li><a href="#p1" data-icon="arrow-r"></a></li>
+                </ul>
+            </div> 
+        </div> 
+         
+         <div data-role="main" class="ui-content">
+         
+           <a href="#p1" data-role="button" data-inline="true" data-transition="flip" data-icon="carat-r" data-iconpos="right"> 
+           	Back to main page
+           </a>
+           
+         </div>
+         
+         <div data-role="footer" data-position="fixed">
+         	<a href="#" class="ui-btn ui-btn-e" > Book a Seat</a>
+         </div>
+         
+     </div><!--landing page  -->
+     
+     <div data-role="page" id="search" data-theme="a">
+    	 <div data-role="header" data-position="fixed">
+        	
+            <div data-role="navbar">
+            	<ul>
+                	<li><a href="#p1" data-icon="home" data-transition="flip"></a></li>
+                    <li><a href="#search" data-icon="search" data-transition="slidedown"></a></li>
+                    <li><a href="#landing" data-icon="gear"></a></li>
+                    <li><a href="#p1" data-icon="arrow-r"></a></li>
+                </ul>
+            </div> 
+          
+        </div> 
+     	
+        
+        <div data-role="content">
+          	<center><p>Arrive date</p></center>
+			
+			  
+    <script>
+	$(document).on('pageinit', '#search', function () {
+    // create a datepicker with default settings
+		$("#scroller").mobiscroll().time({theme:'android-holo'}); // Shorthand for: $("#scroller").mobiscroll({ preset: 'date' });
+	});
+	
+		$(document).on('pageinit', '#search', function () {
+    // create a datepicker with default settings
+		
+		$("#scroller1").mobiscroll().date({theme:'android-holo'}); // Shorthand for: $("#scroller").mobiscroll({ preset: 'date' });
+	});
+	
+
+	function autofrom(a){
+	
+		
+		$("#li1").closest("ul").prev("form").find("input").val(a);
+   
+		$("li").hide();
+		$( "#departure" ).listview( "refresh" );
+		$("li").show();
+	}
+	function autoto(a){
+		
+		$("#li2").closest("ul").prev("form").find("input").val(a);
+  
+		$("li").hide();
+		$( "#targetP" ).listview( "refresh" );
+		$("li").show();
+	}
+
+	function tog(){
+	
+	}
+	
+	 </script>
+			<input id="scroller1" name="scroller" />
+            
+            <div class="ui-grid-a">
+            	<div class="ui-block-a">
+				
+					
+					<ul  data-role="listview" data-filter="true"   data-filter-reveal="true" data-filter-placeholder="where" data-inset="true" id="departure" onclick="tog();" >
+						
+						<li id="li1"><a href="#" onclick="autofrom('Apple ');">Apple</a></li>
+						<li id="li"><a href="#" onclick="autofrom('Banana ');">Banana</a></li>
+						<li id="li"><a href="#" onclick="autofrom('Cherry ');">Cherry</a></li>
+						<li id="li"><a href="#" onclick="autofrom('Crry1');">Cranberry</a></li>
+						<li id="li"><a href="#" onclick="autofrom('C2');">Grape</a></li>
+						<li id="li"><a href="#" onclick="autofrom('Che3');">Orange</a></li>
+					</ul>
+				
+				
+                </div>
+                <div class="ui-block-b">
+              	<ul  data-role="listview" data-filter="true"   data-filter-reveal="true" data-filter-placeholder="to" data-inset="true" id="targetP"  >
+						
+						<li id="li2"><a href="#" onclick="autoto('Apple ');">Apple</a></li>
+						<li id="li"><a href="#" onclick="autoto('Banana ');">Banana</a></li>
+						<li id="li"><a href="#" onclick="autoto('Cherry ');">Cherry</a></li>
+						<li id="li"><a href="#" onclick="autoto('Crry1');">Cranberry</a></li>
+						<li id="li"><a href="#" onclick="autoto('C2');">Grape</a></li>
+						<li id="li"><a href="#" onclick="autoto('Che3');">Orange</a></li>
+				</ul>
+				</div>
+            </div>	
+        	 <input id="scroller" name="scroller" />
+            <center><a href="#searchResult" class="ui-btn ui-btn-corner-all ui-btn-e" >Search</a></center>
+        </div>
+     	<div data-role="footer" data-position="fixed">&Omega; footer</div>
+     </div><!--searching page  -->
+     
+     
+     
+     <div data-role="page" id="searchResult" data-theme="a">
+    	 <div data-role="header" data-position="fixed">
+        	
+            <div data-role="navbar">
+            	<ul>
+                	<li><a href="#p1" data-icon="home" data-transition="flip"></a></li>
+                    <li><a href="#search" data-icon="search" data-transition="slidedown"></a></li>
+                    <li><a href="#landing" data-icon="gear"></a></li>
+                    <li><a href="#p1" data-icon="arrow-r"></a></li>
+                </ul>
+            </div> 
+          
+        </div> 
+     	
+        
+        <div data-role="content">
+          <a href="#" class="ui-btn" > Apply Filters</a>
+          
+        </div>
+     	<div data-role="footer" data-position="fixed">&Omega; footer</div>
+     </div><!--searching  result page  -->
+       
+          
+                       
+</body>
+</html>

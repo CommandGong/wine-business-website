@@ -1,0 +1,115 @@
+
+<html>
+ 	<head>	
+	
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+		<title>欢迎加入加拿大酒庄</title>
+		
+		<script>
+			function setcookies(cname, cpass){
+				document.cookie="username="+cname;
+				document.cookie="password="+cpass;
+			}
+			
+			function connect(){
+				if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+					xmlhttp=new XMLHttpRequest();
+				}
+				else{// code for IE6, IE5
+					xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+				}
+
+			}
+			
+			function checklogin(cname,cpass){
+				$.ajax({
+					type: "POST",
+					url: "logincheck.php",
+					data: {
+							'Name': cname,
+							'Pass': cpass
+						   },
+					success: function(msg){
+						
+						 logresponce(msg,cname,cpass);
+					}
+				});
+			}//check log in
+
+			function logresponce(check,cname,cpass){
+				
+				if(check=="SUCCESS"){
+				
+					alert("Welcome back"+cname);
+					setcookies(cname,cpass);
+					
+					window.location.href = 'index.html';
+					
+				}
+				else {
+					alert("Wrong Login information!");
+				}
+			}			
+			
+			
+			function login(){
+        //        alert("here");
+				var username=document.getElementById("theUserName").value;
+				var password=document.getElementById("password").value;
+				checklogin (username, password);
+			}
+			
+		
+		</script>
+	</head>
+
+	<body>
+		<div data-role="page"  id="index" data-theme="a" >
+			<div data-role="header" >
+				<p><center>Welcome to be a member for REFI</center></p>
+			</div>
+			<div data-role="main" class="ui-content">
+				<form action = "password.php" method = "post"data-ajax="false">
+					<label for="username" >You User Account</label>
+					<input type="text" data-clear-btn="true" name = "username" id="un"  ></input>
+					
+					<label for="password1" >Your Password</label>
+					<input type="password" data-clear-btn="true" name = "password1" id="p1"></input>
+					<label for="password2" >Confirm your Password</label>
+					<input type="password" data-clear-btn="true" name = "password2" id="p2"></input>
+					
+					
+					<label for="email" >Your Email address</label>
+					<input type="text" data-clear-btn="true" name = "email" id="EM"  ></input>
+					
+					
+					<label for="phone" >Your cell phone number (option)</label>
+					<input type="text" data-clear-btn="true" name = "phone" id="PH"  ></input>
+					
+					<input type ="submit" name="submit" value="提交" data-ajax="false"> </input>
+				</form>
+			</div><!-- ui-content-->
+			
+			<div>
+				
+				<a href="#loginMenu"data-rel="popup" data-position-to="window" class="ui-btn ui-btn-inline ui-icon-check ui-btn-icon-left" data-transition="pop" id="fuckme">already had a account? login here</a>
+					<div data-role="popup" id="loginMenu" class="ui-corner-all" data-theme="b">
+						<div style="padding:20px 30px;">
+							<h3>login </h3>
+							<label for="un" class="ui-hidden-accessible">UserName</label>
+							<input type="text" name="userID" id="theUserName" value="" placeholder="Enter your Email"  >
+							<label for="password" class="ui-hidden-accessible">password</label>
+							<input type="password" name="password" id="password" value="" placeholder="Enter your Password" >
+							<a href="#index"  class ="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-check"data-rel="back" data-transition="flow" onclick="login();"> Sign in </a>
+						</div>
+										
+								
+					</div>
+			</div>
+		</div><!-- main page-->
+   </body>
+</html>

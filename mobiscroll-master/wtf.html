@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+    <title>Mobiscroll</title>
+
+    <!-- jQuery Mobile Include -->
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	
+    <script src="http://code.jquery.com/mobile/1.4.4/jquery.mobile-1.4.4.min.js"></script>
+
+    <!-- Mobiscroll JS and CSS Includes -->
+      <script src="js/mobiscroll.appframework.js" type="text/javascript"></script>
+   
+    <script src="js/zepto.js" type="text/javascript"></script>
+	
+    <style type="text/css">
+
+        /* Listview demo styling */
+        .mbsc-lv-cont { margin: 1em -1em; }
+    </style>
+
+    <script>
+		$(function(){
+		// create a datepicker with default settings
+		$("#scroller").mobiscroll().date(); // Shorthand for: $("#scroller").mobiscroll({ preset: 'date' });
+		});
+		
+		$(function(){
+    // create a datetimepicker with default settings
+		$("#scroller").mobiscroll().datetime(); // Shorthand for: $("#scroller").mobiscroll({ preset: 'datetime' });
+		});
+		
+		$(document).on('pageinit', '#testPage', function () {
+    // create a datepicker with default settings
+		$("#scroller").mobiscroll().date(); // Shorthand for: $("#scroller").mobiscroll({ preset: 'date' });
+	});
+      </script>
+</head>
+
+<body>
+    <div data-role="header">
+        <h1>Mobiscroll</h1>
+    </div>
+
+    <div data-role="content">
+		 <input id="scroller" name="scroller" />
+    </div>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+		<meta http-equiv="Content-Type" content="text/html; charset=GB2312" />  
+	
+	</head>
+	
+	<script>
+	
+	function getCookie(){
+		var cook= document.getCookie;
+		var USER;
+		var PASS;
+		if(cook!=""){
+			ca=document.cookie.split(';');
+			var userpart=ca[0].split('=');
+			USER=userpart[1];
+			var passpart=ca[1].split('=');
+			PASS=passpart[1];
+			signin1(USER,PASS);
+		}
+	}
+	function signin(){
+		var name=document.getElementById("theUserName").value;
+		var we= "Welcome  "+ name;
+		document.getElementById("logArea").innerHTML=we;
+	}
+	
+	function signin1(user,pass){
+		
+		var we= "Welcome  "+ user;
+		document.getElementById("logArea").innerHTML=we;
+	}
+	
+	</script>
+	
+	<style type="text/css">
+				
+			#welcome{
+				text-align:center;
+				
+				
+			}
+			 #topimg {
+				
+				 width:100%; 
+			
+			}
+			#leftslide{
+				text-align:left;
+			}
+			#left{
+				 width:100%; 
+			
+			}
+			#right{
+				 width:100%; 
+				 
+			
+			}
+			#mypanel{
+				width:50%;
+			}
+			
+	</style>
+	
+	<body onload="getCookie();">
+		<div data-role="page"  id="index" data-theme="a" >
+			<div data-role="panel" id="mypanel" >
+				<p> after you login,</br> your information will be here</p>
+				<a href="#" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" data-rel="close">Close panel</a>
+					
+			</div><!-- /panel -->
+			
+		
+		    	<div data-role="header" >
+					<div data-role="navbar">
+						<ul>
+							<li><a href="#mypanel" class="ui-btn ui-icon-delete ui-btn-icon-left" id= "leftslide">Open</a></li>
+							<li ><a href="#loginMenu"data-rel="popup" data-position-to="window" class="ui-btn ui-btn-inline ui-icon-check ui-btn-icon-left" data-transition="pop"><div id="logArea">loging</div></a>
+								<div data-role="popup" id="loginMenu" class="ui-corner-all" data-theme="b">
+									
+										<div style="padding:20px 30px;">
+										<h3>please sign in </h3>
+										<label for="un" class="ui-hidden-accessible">UserName</label>
+										<input type="text" name="userID" id="theUserName" value="" placeholder="username"  >
+										
+										<label for="password" class="ui-hidden-accessible">password</label>
+										<input type="text" name="password" id="password" value="" placeholder="Password" >
+										<a href="#index"  class ="ui-btn ui-corner-all ui-shadow ui-btn-icon-left ui-icon-check"data-rel="back" data-transition="flow" onclick="signin();"> Sign in </a>
+										</div>
+									
+								
+								</div>
+								</li>
+						</ul>
+					</div> 
+				</div>
+				
+				<div data-role="main" class="ui-content">
+					<div id="welcome"><p>欢迎来到加拿大瀑布酒庄</p></div>
+					<p><img src="picture/JZ.jpg" id="topimg"></p>
+					<p> 有关我们的庄园 </p>
+					
+					<p><img src="picture/winefarm.jpg" id="left" ></p>
+					<p>有关我们的产品</p>
+					<p><a href ="#product-list"data-transition="flip"><img src="picture/productlist.jpg" id="right" ></a></p>
+				</div><!--body page-->
+
+			
+			<div data-role="footer" data-position="fixed">
+				<div data-role="navbar">
+					<ul><li><a href="#" class="ui-btn">contact us</a> </li></ul>
+				</div>
+			</div>
+			
+
+		</div><!--main page  -->
+		
+		
+		<div data-role="page"  id="product-list" data-theme="b" >
+				<div data-role="panel" id="mypanel" >
+				<p> after you login,</br> your information will be here</p>
+				<a href="#" class="ui-btn ui-btn-inline ui-corner-all ui-shadow" data-rel="close">Close panel</a>
+					
+			</div><!-- /panel -->
+			
+		
+		    	<div data-role="header" >
+					<div data-role="navbar">
+						<ul>
+							<li><a href="#mypanel" class="ui-btn ui-icon-delete ui-btn-icon-left" id= "leftslide">Open</a></li>
+							<li><a href="#index" class="ui-btn ui-icon-back ui-btn-icon-left" >Back to mean page</a> </li>
+						</ul>
+					</div> 
+				</div><!-- header-->
+				
+				<div data-role="main" class="ui-content">
+					<form class="ui-filterable">
+						<input id="product-search" data-type="search" placehoder="Enter your product name to search">
+					</form>
+					<ul data-role="listview" data-filter="true" data-inset="true" data-input="#product-search">
+						<li >
+							<a href ="#"class="ui-btn ui-btn-a">
+								<img src="picture/wine1.png">
+								<h2>Product name: wine1</h2>
+								<p>Price</p><!--hard coding here, use div-->
+							</a>
+						</li>
+						
+						<li>
+							<a href ="#"class="ui-btn ui-btn-a">
+								<img src="picture/wine2.jpg">
+								<h2>Product name: wine2</h2>
+								<p>Price</p><!--hard coding here, use div-->
+							</a>
+						</li>
+						
+						
+						<li>
+							<a href ="#"class="ui-btn ui-btn-a">
+								<img src="picture/wine3.jpg">
+								<h2>Product name: wine3</h2>
+								<p>Price</p><!--hard coding here, use div-->
+							</a>
+						</li>
+						
+						<li>
+							<a href ="#"class="ui-btn ui-btn-a">
+								<img src="picture/wine4.jpg">
+								<h2>Product name: wine3</h2>
+								<p>Price</p><!--hard coding here, use div-->
+							</a>
+						</li>
+						
+					</ul>
+				</div><!--body page-->
+				
+					
+				<div data-role="footer" data-position="fixed">
+					<div data-role="navbar">
+						<ul>
+						<li><a href="#" class="ui-btn">contact us</a> </li>
+						<li><a href="#index" class="ui-btn">Back to mean page</a> </li>
+						</ul>
+					</div>
+				</div><!--footer-->
+		
+		</div><!--productlist page  -->
+	</body>
+</html>

@@ -1,0 +1,71 @@
+
+<html>
+ 	<head>	
+	
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+		<title>gaaa</title>
+	</head>
+
+	<body>
+	<style>
+		.split-custom-wrapper {
+    /* position wrapper on the right of the listitem */
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+}
+
+.split-custom-button {
+    position: relative;
+    float: right;   /* allow multiple links stacked on the right */
+    height: 100%;
+    margin:0;
+    min-width:3em;
+    /* remove boxshadow and border */
+    border:none;
+    moz-border-radius: 0;
+    webkit-border-radius: 0;
+    border-radius: 0;
+    moz-box-shadow: none;
+    webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.split-custom-button span.ui-btn-inner {
+    /* position icons in center of listitem*/
+    position: relative;
+    margin-top:50%;
+    margin-left:50%;
+    /* compensation for icon dimensions */
+    top:11px; 
+    left:-12px;
+    height:40%; /* stay within boundaries of list item */
+}
+	</style>
+		<div data-role="page"  id="index" data-theme="a" >
+			<div data-role="header" >
+				<p><center>gggg</center></p>
+			</div>
+			<div data-role="main" class="ui-content">
+					<ul data-role="listview">
+						<li>
+							<a href="#">
+								<img class="cover" src="images/cover.jpg"/>
+								<h3>title</h3>
+								<p>description</p>
+							</a>
+							<div class="split-custom-wrapper">
+								<a href="#" data-role="button" class="split-custom-button" data-icon="gear" data-rel="dialog" data-theme="c" data-iconpos="notext"></a>
+								<a href="#" data-role="button" class="split-custom-button" data-icon="delete" data-rel="dialog" data-theme="c" data-iconpos="notext"></a>           
+							</div>
+						</li>
+					</ul>
+			</div><!-- ui-content-->
+		</div><!-- main page-->
+   </body>
+</html>

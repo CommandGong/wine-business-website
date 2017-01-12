@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=GB2312" />  
+<title>how much doest it cost ?</title>
+</head>
+<style>
+</style>
+<script>
+
+function postdata(){
+connect();
+var myID;
+myID=document.getElementById("userid").value
+
+$.ajax({
+type: "POST",
+url: "productinfo.php",
+
+data: {
+		'ID': myID
+	   },
+success: function(msg){ //提交成功后的回调，msg变量是ok.php输出的内容。 
+	
+
+
+	document.getElementById("txtHint").innerHTML=msg;
+
+}
+});
+
+
+
+}
+
+
+function connect(){
+if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+	xmlhttp=new XMLHttpRequest();
+}
+else{// code for IE6, IE5
+	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+}
+
+}
+
+
+
+
+
+
+</script>
+
+<body>
+		<div data-role="page"  id="p1" data-theme="b" style="background:url(../picture/JZ.jpg) 100% 0 no-repeat;background-size:cover">
+    	<div data-role="header" data-position="fixed">
+        	<div data-role="navbar">
+            	<ul>
+                	<li><a href="#p1" data-icon="home" data-transition="flip">123</a></li>
+                    <li><a href="#" data-icon="search" data-transition="slidedown">123</a></li>
+                    <li><a href="#" data-icon="gear">123</a></li>
+                    <li><a href="#" ><img src="Picture/1.ico" style="width:35px;height:35px"></a></li>
+                </ul>
+            </div> 
+          
+         </div> 
+         
+         <div data-role="main" class="ui-content">
+			<input type="text" id="userid"> </input>
+         	<a href data-role="button" data-inline="true" onclick="postdata()">search </a>
+			<p id="txtHint"> </p>
+			
+         </div><!--body page-->
+         
+		 
+         <div data-role="footer" data-position="fixed">
+         	<p>&copy;footer</p>
+         </div>
+         
+     </div><!--main page  -->
+
+</body>
+
+</html>

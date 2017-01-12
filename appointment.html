@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+		<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+		<meta http-equiv="Content-Type" content="text/html; charset=GB2312" />  
+		 <script src="mobiscroll/js/mobiscroll.custom-2.5.0.min.js" type="text/javascript"></script>
+		<link href="mobiscroll/css/mobiscroll.custom-2.5.0.min.css" rel="stylesheet" type="text/css" />
+		
+			<script>
+					$(document).on('pageinit', '#search', function () {
+					// create a datepicker with default settings
+						$("#scroller").mobiscroll().time({theme:' '}); // Shorthand for: $("#scroller").mobiscroll({ preset: 'date' });
+					});
+					
+						$(document).on('pageinit', '#search', function () {
+					// create a datepicker with default settings
+						
+						$("#scroller1").mobiscroll().date({theme:'android-holo', dateFormat: 'yy-mm-dd'}); // Shorthand for: $("#scroller").mobiscroll({ preset: 'date' });
+					});
+					
+				//	document.getElementById("box1").checked
+				
+				
+				function hadlogin(){
+					var  MYname=getCookie("username");
+					if(MYname==""){
+						
+						alert("您还没有登录，请先登录,或者注册");
+						document.body.innerHTML="error";
+						window.setTimeout(function(){
+
+							
+							window.location.href = "signin.html";
+
+						}, 5);
+						
+						
+					}
+					else {
+						
+					}
+				}
+				
+				function getCookie(cname) {
+					var name = cname + "=";
+					var ca = document.cookie.split(';');
+					for(var i=0; i<ca.length; i++) {
+						var c = ca[i];
+						while (c.charAt(0)==' ') c = c.substring(1);
+						if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+					}
+					return "";
+				}
+				
+				function connect(){
+					if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+						xmlhttp=new XMLHttpRequest();
+					}
+					else{// code for IE6, IE5
+						xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+					}
+
+				}
+				
+				function addApponit(date,time,num_people,info,appended,appointment_state,winetaste_state,visitegarden_state,lunch_state){//heree
+				
+					$.ajax({
+						
+						type: "POST",
+						url: "addapponment.php",
+
+						data: {
+								'date':date,
+								'time':time,
+								'num_people':num_people,
+								'contact':info,
+								'appended':appended,
+								'appointment_state':appointment_state,
+								'winetaste_state':winetaste_state,
+								'visitegarden_state':visitegarden_state,
+								'lunch_state':lunch_state
+							   },
+						success: function(msg){
+							
+							 alert(msg);
+							 
+						
+							
+						}
+					});
+				
+
+					
+				}//add
+				
+				function checkvalid(){
+					var trigger=true;
+					var msg="请填写";
+					if(document.getElementById("scroller1").value==''){
+						msg=msg+"预定日期;";
+						trigger=false;
+					}
+					if(document.getElementById("scroller").value==''){
+						msg= msg+"预定时间;";
+						trigger=false;
+					}
+					if(document.getElementById("num_people").value==''){
+						msg=msg+"预定的人数;";
+						trigger=false;
+					}
+					if(document.getElementById("contact").value==''){
+						msg=msg+"有效的联系方式;";
+						trigger=false;
+					}
+					if(document.getElementById("BorT1").checked==false&&document.getElementById("BorT2").checked==false){
+						msg=msg+"预约性质;";
+						trigger=false;
+					}
+					
+					if (trigger ==false ){
+					   alert(msg);
+					}
+					else {
+						getvalue();
+					}
+										
+									
+				
+				}
+				function getvalue (){
+					var date= document.getElementById("scroller1").value;
+					var time= document.getElementById("scroller").value;
+					var num_people= document.getElementById("num_people").value;
+					var info = document.getElementById("contact").value;
+					var appended = document.getElementById("appended").value;
+					var appointment_state=-1;
+					var winetaste_state=0;
+					var visitegarden_state=0;
+					var lunch_state=0;
+					if(document.getElementById("BorT1").checked){
+						 appointment_state=0;//0 means 商旅考察
+					}
+					else if(document.getElementById("BorT2").checked) {
+						 appointment_state=1;
+					}
+					
+					if (document.getElementById("wine").checked){
+						winetaste_state=1;
+					}
+					if(document.getElementById("garden").checked){
+						visitegarden_state=1;
+					}
+					
+					if(document.getElementById("launch").checked){
+						lunch_state=1;
+					}	
+					
+					addApponit(date,time,num_people,info,appended,appointment_state,winetaste_state,visitegarden_state,visitegarden_state,lunch_state);
+					
+					
+					
+					
+				}
+				
+			</script>
+		
+	</head>
+
+	<body onload="hadlogin();">
+		<div data-role="page" id="search" data-theme="a">
+				 <div data-role="header" data-position="fixed">
+					<center><p>欢迎使用REIF Estate Winery 预约项目</p></center>
+				  
+				 </div> 
+				
+				
+				<div data-role="content">
+					
+					
+							  
+				
+					
+					<label for="scroller1">预定日期
+						<input id="scroller1" name="scroller1" ></input>
+					</label>
+					
+					<label for="scroller1">预定时间
+						<input id="scroller" name="scroller" ></input>
+					</label>
+					
+					<label for="num_people">预定人数
+						<input id="num_people" ></input>
+					</label>
+					
+					<label for="contact">有效的联系方式
+						<input id="contact" ></input>
+					</label>
+					
+					<label for="appended">备注
+						<textarea id="appended" name="appended" ></textarea>
+					</label>
+					
+						<fieldset data-role="controlgroup" data-type="horizontal">
+							<legend>预约性质</legend>
+							<label for=“radio” >
+								<input type="radio" name="BorT" id="BorT1"></input>
+								商旅考察
+							</label>
+							<label for=“checkbox” >
+								<input type="radio" name="BorT" id="BorT2"></input>
+								旅游
+							</label>
+						</fieldset>
+						
+						<fieldset date-role="controlgroup">
+							
+							<label for=“checkbox” >
+								<input type="checkbox" id="wine"></input>
+								品酒
+							</label>
+							
+							<label for=“checkbox” >
+								<input type="checkbox" id="garden"></input>
+								游园
+							</label>
+							
+							<label for=“checkbox” >
+								<input type="checkbox" id="launch"></input>
+								午餐
+							</label>
+						</fieldset>
+					
+					
+						
+					<center><a href="#" class="ui-btn ui-btn-corner-all ui-btn-e" onclick="checkvalid();">提交</a></center>
+				</div>
+				<div data-role="footer" data-position="fixed">&Omega; footer</div>
+			 </div><!--searching page  -->
+	 
+		</body>
+	 </head>

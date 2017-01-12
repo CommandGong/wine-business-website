@@ -1,0 +1,68 @@
+			.custom-btn-leftup {
+					
+					
+					background-image:url(../picture/slide-2.jpg); 
+					background-repeat: no-repeat;
+					background-size:100%;
+			}
+			.custom-btn-leftdown {
+					
+					
+					background-image:url(../picture/slide-6.jpg); 
+					background-repeat: no-repeat;
+					background-size:100%;
+			}
+			
+			.custom-btn-rightup {
+					
+					
+					background-image:url(../picture/store.jpg); 
+					background-repeat: no-repeat;
+					background-size:100%;
+			}
+			.custom-btn-rightdown {
+					
+					
+					background-image:url(../picture/slide-2.jpg); 
+					background-repeat: no-repeat;
+					background-size:100%;
+			}
+			
+			.center {
+				margin: auto;
+				width: 60%;
+				font-size: 200%;
+				padding: 10px;
+			}
+			.btn_custom{
+				font-size:100%;
+				
+			}
+
+            #welcome{
+				text-align:center;
+				
+				
+			}
+			 #topimg {
+				
+				 width:100%; 
+			
+			}
+			#leftslide{
+				text-align:left;
+			}
+			#left{
+				 width:100%; 
+			
+			}
+			#right{
+				 width:100%; 
+				 
+			
+			}
+			#mypanel{
+				width:50%;
+			}
+			
+		
